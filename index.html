@@ -1,54 +1,127 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quiz App</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Multiple Choice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .options label {
+            display: block;
+            margin: 5px 0;
+        }
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e3f2fd;
+            border-radius: 4px;
+            text-align: center;
+            display: none;
+        }
+    </style>
 </head>
 <body>
-  <div id="quiz">
-    <div class="question" id="q1">
-      <p>1. Siapa penemu lampu pijar?</p>
-      <label>
-        <input type="radio" name="q1" value="A"> Thomas Edison
-      </label><br>
-      <label>
-        <input type="radio" name="q1" value="B"> Alexander Graham Bell
-      </label><br>
-      <label>
-        <input type="radio" name="q1" value="C"> Nikola Tesla
-      </label><br>
-      <label>
-        <input type="radio" name="q1" value="D"> Albert Einstein
-      </label><br>
-      <button type="button" class="next-btn" data-question="q1">Next</button>
-      <p class="feedback" id="feedback-q1"></p>
-    </div>
-    
-    <div class="question" id="q2" style="display: none;">
-      <p>2. Apa ibu kota Prancis?</p>
-      <label>
-        <input type="radio" name="q2" value="A"> Paris
-      </label><br>
-      <label>
-        <input type="radio" name="q2" value="B"> London
-      </label><br>
-      <label>
-        <input type="radio" name="q2" value="C"> Berlin
-      </label><br>
-      <label>
-        <input type="radio" name="q2" value="D"> Madrid
-      </label><br>
-      <button type="button" class="next-btn" data-question="q2">Next</button>
-      <p class="feedback" id="feedback-q2"></p>
-    </div>
-    
-    <div id="submit" style="display: none;">
-      <button type="submit">Kirim Jawaban</button>
-    </div>
-  </div>
 
-  <script src="script.js"></script>
+    <div class="container">
+        <h2>Quiz: Pilih Jawaban yang Tepat</h2>
+
+        <form id="quizForm">
+            <div class="question">
+                <p>1. Apa ibu kota Indonesia?</p>
+                <div class="options">
+                    <label><input type="radio" name="question1" value="A"> Jakarta</label>
+                    <label><input type="radio" name="question1" value="B"> Bandung</label>
+                    <label><input type="radio" name="question1" value="C"> Surabaya</label>
+                </div>
+            </div>
+
+            <div class="question">
+                <p>2. Siapa presiden pertama Indonesia?</p>
+                <div class="options">
+                    <label><input type="radio" name="question2" value="A"> Soekarno</label>
+                    <label><input type="radio" name="question2" value="B"> Suharto</label>
+                    <label><input type="radio" name="question2" value="C"> Joko Widodo</label>
+                </div>
+            </div>
+
+            <div class="question">
+                <p>3. Berapa jumlah pulau di Indonesia?</p>
+                <div class="options">
+                    <label><input type="radio" name="question3" value="A"> 13.000</label>
+                    <label><input type="radio" name="question3" value="B"> 17.508</label>
+                    <label><input type="radio" name="question3" value="C"> 5.000</label>
+                </div>
+            </div>
+
+            <button type="button" class="submit-btn" onclick="submitQuiz()">Submit</button>
+        </form>
+
+        <div id="result" class="result">
+            <p id="resultMessage"></p>
+        </div>
+    </div>
+
+    <script>
+        function submitQuiz() {
+            const answers = {
+                question1: "A", // Jawaban benar untuk pertanyaan 1
+                question2: "A", // Jawaban benar untuk pertanyaan 2
+                question3: "B"  // Jawaban benar untuk pertanyaan 3
+            };
+            let score = 0;
+            const form = document.getElementById("quizForm");
+            const resultMessage = document.getElementById("resultMessage");
+
+            // Periksa jawaban yang dipilih
+            for (let question in answers) {
+                const selectedAnswer = form.querySelector(`input[name="${question}"]:checked`);
+                if (selectedAnswer && selectedAnswer.value === answers[question]) {
+                    score++;
+                }
+            }
+
+            // Menampilkan hasil
+            const result = document.getElementById("result");
+            result.style.display = "block";
+            resultMessage.textContent = `Anda mendapatkan ${score} dari 3 jawaban yang benar!`;
+
+            // Reset form setelah submit
+            form.reset();
+        }
+    </script>
+
 </body>
 </html>
