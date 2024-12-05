@@ -4,70 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz Multiple Choice</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 600px;
-            margin: auto;
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h2 {
-            text-align: center;
-            color: #333;
-        }
-        .question {
-            margin-bottom: 20px;
-        }
-        .options label {
-            display: block;
-            margin: 5px 0;
-        }
-        .submit-btn {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .submit-btn:hover {
-            background-color: #45a049;
-        }
-        .result {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #e3f2fd;
-            border-radius: 4px;
-            text-align: center;
-            display: none;
-        }
-        .review {
-            margin-top: 20px;
-            background-color: #fff3e0;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        .correct {
-            color: green;
-        }
-        .incorrect {
-            color: red;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="container">
+    <div class="container" id="categorySelection">
+        <h2>Pilih Kategori Kuis</h2>
+        <button class="submit-btn" onclick="selectCategory('pkn')">PKN</button>
+        <button class="submit-btn" onclick="selectCategory('agama')">Agama</button>
+    </div>
+
+    <div class="container" id="quizContainer" style="display:none;">
         <h2>Quiz: Pilih Jawaban yang Tepat</h2>
 
         <form id="quizForm">
@@ -88,92 +35,6 @@
         </div>
     </div>
 
-    <script>
-        let questionsData = [];
-
-        // Fungsi untuk memuat XML dan parsing pertanyaan
-        function loadXML() {
-            const xhr = new XMLHttpRequest();
-            xhr.open("GET", "questions.xml", true); // Ganti dengan path XML jika perlu
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    const xmlDoc = xhr.responseXML;
-                    const questions = xmlDoc.getElementsByTagName("question");
-                    for (let i = 0; i < questions.length; i++) {
-                        const questionText = questions[i].getElementsByTagName("text")[0].textContent;
-                        const options = questions[i].getElementsByTagName("option");
-                        const correctAnswer = questions[i].getElementsByTagName("correctAnswer")[0].textContent;
-
-                        let optionsHTML = "";
-                        for (let j = 0; j < options.length; j++) {
-                            const value = options[j].getAttribute("value");
-                            const text = options[j].textContent;
-                            optionsHTML += `<label><input type="radio" name="question${i + 1}" value="${value}"> ${text}</label>`;
-                        }
-
-                        questionsData.push({
-                            questionText,
-                            optionsHTML,
-                            correctAnswer
-                        });
-                    }
-                    displayQuestions();
-                }
-            };
-            xhr.send();
-        }
-
-        // Fungsi untuk menampilkan pertanyaan di form
-        function displayQuestions() {
-            const form = document.getElementById("quizForm");
-            questionsData.forEach((q, index) => {
-                form.innerHTML += `
-                    <div class="question">
-                        <p>${index + 1}. ${q.questionText}</p>
-                        <div class="options">
-                            ${q.optionsHTML}
-                        </div>
-                    </div>
-                `;
-            });
-        }
-
-        // Fungsi untuk submit kuis dan menampilkan hasil
-        function submitQuiz() {
-            let score = 0;
-            let reviewHTML = "";
-            const form = document.getElementById("quizForm");
-
-            questionsData.forEach((q, index) => {
-                const selectedAnswer = form.querySelector(`input[name="question${index + 1}"]:checked`);
-                if (selectedAnswer) {
-                    if (selectedAnswer.value === q.correctAnswer) {
-                        score++;
-                        reviewHTML += `<p class="correct">Pertanyaan ${index + 1}: Benar! Jawaban Anda: ${selectedAnswer.nextSibling.textContent}</p>`;
-                    } else {
-                        reviewHTML += `<p class="incorrect">Pertanyaan ${index + 1}: Salah. Jawaban yang benar adalah: ${q.correctAnswer}</p>`;
-                    }
-                } else {
-                    reviewHTML += `<p class="incorrect">Pertanyaan ${index + 1}: Anda belum memilih jawaban!</p>`;
-                }
-            });
-
-            // Menampilkan hasil
-            const result = document.getElementById("result");
-            result.style.display = "block";
-            document.getElementById("resultMessage").textContent = `Anda mendapatkan ${score} dari ${questionsData.length} jawaban yang benar!`;
-
-            // Menampilkan review
-            const review = document.getElementById("review");
-            review.style.display = "block";
-            document.getElementById("review1").innerHTML = reviewHTML.split('<p>')[0];  // Pertanyaan 1
-            document.getElementById("review2").innerHTML = reviewHTML.split('<p>')[1];  // Pertanyaan 2
-            document.getElementById("review3").innerHTML = reviewHTML.split('<p>')[2];  // Pertanyaan 3
-        }
-
-        // Muat XML saat halaman pertama kali dimuat
-        window.onload = loadXML;
-    </script>
-
+    <script src="script.js"></script>
 </body>
 </html>

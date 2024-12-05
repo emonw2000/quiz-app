@@ -1,62 +1,89 @@
-// Jawaban benar untuk setiap soal
-const correctAnswers = {
-  q1: 'A', // Thomas Edison adalah jawaban yang benar untuk soal 1
-  q2: 'A', // Paris adalah jawaban yang benar untuk soal 2
-};
+let questionsData = [];
 
-// Menangani klik tombol "Next"
-document.querySelectorAll('.next-btn').forEach(button => {
-  button.addEventListener('click', function() {
-    const questionId = this.dataset.question;
-    const selectedAnswer = document.querySelector(`input[name="${questionId}"]:checked`);
+// Fungsi untuk memilih kategori
+function selectCategory(category) {
+    document.getElementById("categorySelection").style.display = "none";
+    document.getElementById("quizContainer").style.display = "block";
+    loadXML(category);
+}
 
-    // Pastikan jawaban telah dipilih
-    if (selectedAnswer) {
-      const feedback = document.getElementById(`feedback-${questionId}`);
+// Fungsi untuk memuat XML berdasarkan kategori
+function loadXML(category) {
+    const xhr = new XMLHttpRequest();
+    const file = category === 'pkn' ? 'questions_pkn.xml' : 'questions_agama.xml';
+    xhr.open("GET", file, true); // Memilih file XML berdasarkan kategori
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            const xmlDoc = xhr.responseXML;
+            const questions = xmlDoc.getElementsByTagName("question");
+            questionsData = [];
+            for (let i = 0; i < questions.length; i++) {
+                const questionText = questions[i].getElementsByTagName("text")[0].textContent;
+                const options = questions[i].getElementsByTagName("option");
+                const correctAnswer = questions[i].getElementsByTagName("correctAnswer")[0].textContent;
 
-      // Cek apakah jawabannya benar atau salah
-      if (selectedAnswer.value === correctAnswers[questionId]) {
-        feedback.textContent = "Benar!";
-        feedback.className = 'feedback correct';
-      } else {
-        feedback.textContent = `Salah! Jawaban yang benar adalah ${correctAnswers[questionId]}.`;
-        feedback.className = 'feedback incorrect';
-      }
+                let optionsHTML = "";
+                for (let j = 0; j < options.length; j++) {
+                    const value = options[j].getAttribute("value");
+                    const text = options[j].textContent;
+                    optionsHTML += `<label><input type="radio" name="question${i + 1}" value="${value}"> ${text}</label>`;
+                }
 
-      // Tampilkan feedback dan pindah ke soal berikutnya
-      feedback.style.display = 'block'; // Menampilkan feedback setelah memilih jawaban
+                questionsData.push({
+                    questionText,
+                    optionsHTML,
+                    correctAnswer
+                });
+            }
+            displayQuestions();
+        }
+    };
+    xhr.send();
+}
 
-      // Sembunyikan pertanyaan saat ini dan tampilkan pertanyaan berikutnya
-      document.getElementById(questionId).style.display = 'none';
-      const nextQuestionId = `q${parseInt(questionId.charAt(1)) + 1}`;
-      document.getElementById(nextQuestionId).style.display = 'block';
+// Fungsi untuk menampilkan pertanyaan di form
+function displayQuestions() {
+    const form = document.getElementById("quizForm");
+    form.innerHTML = "";
+    questionsData.forEach((q, index) => {
+        form.innerHTML += `
+            <div class="question">
+                <p>${index + 1}. ${q.questionText}</p>
+                <div class="options">
+                    ${q.optionsHTML}
+                </div>
+            </div>
+        `;
+    });
+}
 
-      // Tampilkan tombol Kirim jika sudah menjawab semua soal
-      if (nextQuestionId === 'q3') {
-        document.getElementById('submit').style.display = 'block';
-      }
-    } else {
-      alert('Pilih jawaban terlebih dahulu!');
-    }
-  });
-});
+// Fungsi untuk submit kuis dan menampilkan hasil
+function submitQuiz() {
+    let score = 0;
+    let reviewHTML = "";
+    const form = document.getElementById("quizForm");
 
-// Menangani pengiriman form
-document.getElementById('quiz-form').addEventListener('submit', function(event) {
-  event.preventDefault();
+    questionsData.forEach((q, index) => {
+        const selectedAnswer = form.querySelector(`input[name="question${index + 1}"]:checked`);
+        if (selectedAnswer) {
+            if (selectedAnswer.value === q.correctAnswer) {
+                score++;
+                reviewHTML += `<p class="correct">Pertanyaan ${index + 1}: Benar! Jawaban Anda: ${selectedAnswer.nextSibling.textContent}</p>`;
+            } else {
+                reviewHTML += `<p class="incorrect">Pertanyaan ${index + 1}: Salah. Jawaban yang benar adalah: ${q.correctAnswer}</p>`;
+            }
+        } else {
+            reviewHTML += `<p class="incorrect">Pertanyaan ${index + 1}: Anda belum memilih jawaban!</p>`;
+        }
+    });
 
-  let score = 0;
-  const totalQuestions = 2;
+    // Menampilkan hasil
+    const result = document.getElementById("result");
+    const resultMessage = document.getElementById("resultMessage");
+    resultMessage.textContent = `Skor Anda: ${score} dari ${questionsData.length} soal.`;
+    result.style.display = "block";
 
-  // Menilai semua soal
-  for (const questionId in correctAnswers) {
-    const selectedAnswer = document.querySelector(`input[name="${questionId}"]:checked`);
-    if (selectedAnswer && selectedAnswer.value === correctAnswers[questionId]) {
-      score++;
-    }
-  }
-
-  // Menampilkan hasil
-  const result = document.getElementById('result');
-  result.textContent = `Skor Anda: ${score} dari ${totalQuestions}`;
-});
+    // Menampilkan review hasil
+    document.getElementById("review").style.display = "block";
+    document.getElementById("review1").innerHTML = reviewHTML;
+}
