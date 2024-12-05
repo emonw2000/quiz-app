@@ -71,35 +71,10 @@
         <h2>Quiz: Pilih Jawaban yang Tepat</h2>
 
         <form id="quizForm">
-            <div class="question">
-                <p>1. Apa ibu kota Indonesia?</p>
-                <div class="options">
-                    <label><input type="radio" name="question1" value="A"> Jakarta</label>
-                    <label><input type="radio" name="question1" value="B"> Bandung</label>
-                    <label><input type="radio" name="question1" value="C"> Surabaya</label>
-                </div>
-            </div>
-
-            <div class="question">
-                <p>2. Siapa presiden pertama Indonesia?</p>
-                <div class="options">
-                    <label><input type="radio" name="question2" value="A"> Soekarno</label>
-                    <label><input type="radio" name="question2" value="B"> Suharto</label>
-                    <label><input type="radio" name="question2" value="C"> Joko Widodo</label>
-                </div>
-            </div>
-
-            <div class="question">
-                <p>3. Berapa jumlah pulau di Indonesia?</p>
-                <div class="options">
-                    <label><input type="radio" name="question3" value="A"> 13.000</label>
-                    <label><input type="radio" name="question3" value="B"> 17.508</label>
-                    <label><input type="radio" name="question3" value="C"> 5.000</label>
-                </div>
-            </div>
-
-            <button type="button" class="submit-btn" onclick="submitQuiz()">Submit</button>
+            <!-- Pertanyaan akan ditambahkan di sini oleh JavaScript -->
         </form>
+
+        <button type="button" class="submit-btn" onclick="submitQuiz()">Submit</button>
 
         <div id="result" class="result">
             <p id="resultMessage"></p>
@@ -114,36 +89,79 @@
     </div>
 
     <script>
-        function submitQuiz() {
-            const answers = {
-                question1: "A", // Jawaban benar untuk pertanyaan 1
-                question2: "A", // Jawaban benar untuk pertanyaan 2
-                question3: "B"  // Jawaban benar untuk pertanyaan 3
-            };
-            let score = 0;
-            const form = document.getElementById("quizForm");
-            const resultMessage = document.getElementById("resultMessage");
+        let questionsData = [];
 
-            // Periksa jawaban yang dipilih
+        // Fungsi untuk memuat XML dan parsing pertanyaan
+        function loadXML() {
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", "questions.xml", true); // Ganti dengan path XML jika perlu
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    const xmlDoc = xhr.responseXML;
+                    const questions = xmlDoc.getElementsByTagName("question");
+                    for (let i = 0; i < questions.length; i++) {
+                        const questionText = questions[i].getElementsByTagName("text")[0].textContent;
+                        const options = questions[i].getElementsByTagName("option");
+                        const correctAnswer = questions[i].getElementsByTagName("correctAnswer")[0].textContent;
+
+                        let optionsHTML = "";
+                        for (let j = 0; j < options.length; j++) {
+                            const value = options[j].getAttribute("value");
+                            const text = options[j].textContent;
+                            optionsHTML += `<label><input type="radio" name="question${i + 1}" value="${value}"> ${text}</label>`;
+                        }
+
+                        questionsData.push({
+                            questionText,
+                            optionsHTML,
+                            correctAnswer
+                        });
+                    }
+                    displayQuestions();
+                }
+            };
+            xhr.send();
+        }
+
+        // Fungsi untuk menampilkan pertanyaan di form
+        function displayQuestions() {
+            const form = document.getElementById("quizForm");
+            questionsData.forEach((q, index) => {
+                form.innerHTML += `
+                    <div class="question">
+                        <p>${index + 1}. ${q.questionText}</p>
+                        <div class="options">
+                            ${q.optionsHTML}
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Fungsi untuk submit kuis dan menampilkan hasil
+        function submitQuiz() {
+            let score = 0;
             let reviewHTML = "";
-            for (let question in answers) {
-                const selectedAnswer = form.querySelector(`input[name="${question}"]:checked`);
+            const form = document.getElementById("quizForm");
+
+            questionsData.forEach((q, index) => {
+                const selectedAnswer = form.querySelector(`input[name="question${index + 1}"]:checked`);
                 if (selectedAnswer) {
-                    if (selectedAnswer.value === answers[question]) {
+                    if (selectedAnswer.value === q.correctAnswer) {
                         score++;
-                        reviewHTML += `<p class="correct">Pertanyaan ${question.charAt(8)}: Benar! Jawaban Anda: ${selectedAnswer.nextSibling.textContent}</p>`;
+                        reviewHTML += `<p class="correct">Pertanyaan ${index + 1}: Benar! Jawaban Anda: ${selectedAnswer.nextSibling.textContent}</p>`;
                     } else {
-                        reviewHTML += `<p class="incorrect">Pertanyaan ${question.charAt(8)}: Salah. Jawaban yang benar adalah: ${answers[question]}</p>`;
+                        reviewHTML += `<p class="incorrect">Pertanyaan ${index + 1}: Salah. Jawaban yang benar adalah: ${q.correctAnswer}</p>`;
                     }
                 } else {
-                    reviewHTML += `<p class="incorrect">Pertanyaan ${question.charAt(8)}: Anda belum memilih jawaban!</p>`;
+                    reviewHTML += `<p class="incorrect">Pertanyaan ${index + 1}: Anda belum memilih jawaban!</p>`;
                 }
-            }
+            });
 
             // Menampilkan hasil
             const result = document.getElementById("result");
             result.style.display = "block";
-            resultMessage.textContent = `Anda mendapatkan ${score} dari 3 jawaban yang benar!`;
+            document.getElementById("resultMessage").textContent = `Anda mendapatkan ${score} dari ${questionsData.length} jawaban yang benar!`;
 
             // Menampilkan review
             const review = document.getElementById("review");
@@ -151,10 +169,10 @@
             document.getElementById("review1").innerHTML = reviewHTML.split('<p>')[0];  // Pertanyaan 1
             document.getElementById("review2").innerHTML = reviewHTML.split('<p>')[1];  // Pertanyaan 2
             document.getElementById("review3").innerHTML = reviewHTML.split('<p>')[2];  // Pertanyaan 3
-
-            // Reset form setelah submit
-            form.reset();
         }
+
+        // Muat XML saat halaman pertama kali dimuat
+        window.onload = loadXML;
     </script>
 
 </body>

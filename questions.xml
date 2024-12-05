@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+    <question id="1">
+        <text>Apa ibu kota Indonesia?</text>
+        <options>
+            <option value="A">Jakarta</option>
+            <option value="B">Bandung</option>
+            <option value="C">Surabaya</option>
+        </options>
+        <correctAnswer>A</correctAnswer>
+    </question>
+    <question id="2">
+        <text>Siapa presiden pertama Indonesia?</text>
+        <options>
+            <option value="A">Soekarno</option>
+            <option value="B">Suharto</option>
+            <option value="C">Joko Widodo</option>
+        </options>
+        <correctAnswer>A</correctAnswer>
+    </question>
+    <question id="3">
+        <text>Berapa jumlah pulau di Indonesia?</text>
+        <options>
+            <option value="A">13.000</option>
+            <option value="B">17.508</option>
+            <option value="C">5.000</option>
+        </options>
+        <correctAnswer>B</correctAnswer>
+    </question>
+</quiz>
