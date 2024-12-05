@@ -12,8 +12,8 @@
     <h1>Soal Pilihan Ganda</h1>
 
     <form id="quiz-form">
-      <div class="question">
-        <p>1. Siapa penemu bola lampu?</p>
+      <div class="question" id="q1">
+        <p>1. Siapa penemu bola lampu2?</p>
         <label>
           <input type="radio" name="q1" value="A">
           Thomas Edison
@@ -30,9 +30,11 @@
           <input type="radio" name="q1" value="D">
           Albert Einstein
         </label><br>
+        <button type="button" class="next-btn" data-question="q1">Next</button>
+        <p class="feedback" id="feedback-q1"></p>
       </div>
 
-      <div class="question">
+      <div class="question" id="q2" style="display:none;">
         <p>2. Apa ibu kota Prancis?</p>
         <label>
           <input type="radio" name="q2" value="A">
@@ -50,9 +52,11 @@
           <input type="radio" name="q2" value="D">
           Madrid
         </label><br>
+        <button type="button" class="next-btn" data-question="q2">Next</button>
+        <p class="feedback" id="feedback-q2"></p>
       </div>
 
-      <button type="submit">Kirim Jawaban</button>
+      <button type="submit" id="submit" style="display:none;">Kirim Jawaban</button>
     </form>
 
     <div id="result"></div>
@@ -61,4 +65,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-
