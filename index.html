@@ -51,6 +51,18 @@
             text-align: center;
             display: none;
         }
+        .review {
+            margin-top: 20px;
+            background-color: #fff3e0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .correct {
+            color: green;
+        }
+        .incorrect {
+            color: red;
+        }
     </style>
 </head>
 <body>
@@ -92,6 +104,13 @@
         <div id="result" class="result">
             <p id="resultMessage"></p>
         </div>
+
+        <div id="review" class="review" style="display:none;">
+            <h3>Review Hasil:</h3>
+            <div id="review1"></div>
+            <div id="review2"></div>
+            <div id="review3"></div>
+        </div>
     </div>
 
     <script>
@@ -106,10 +125,18 @@
             const resultMessage = document.getElementById("resultMessage");
 
             // Periksa jawaban yang dipilih
+            let reviewHTML = "";
             for (let question in answers) {
                 const selectedAnswer = form.querySelector(`input[name="${question}"]:checked`);
-                if (selectedAnswer && selectedAnswer.value === answers[question]) {
-                    score++;
+                if (selectedAnswer) {
+                    if (selectedAnswer.value === answers[question]) {
+                        score++;
+                        reviewHTML += `<p class="correct">Pertanyaan ${question.charAt(8)}: Benar! Jawaban Anda: ${selectedAnswer.nextSibling.textContent}</p>`;
+                    } else {
+                        reviewHTML += `<p class="incorrect">Pertanyaan ${question.charAt(8)}: Salah. Jawaban yang benar adalah: ${answers[question]}</p>`;
+                    }
+                } else {
+                    reviewHTML += `<p class="incorrect">Pertanyaan ${question.charAt(8)}: Anda belum memilih jawaban!</p>`;
                 }
             }
 
@@ -117,6 +144,13 @@
             const result = document.getElementById("result");
             result.style.display = "block";
             resultMessage.textContent = `Anda mendapatkan ${score} dari 3 jawaban yang benar!`;
+
+            // Menampilkan review
+            const review = document.getElementById("review");
+            review.style.display = "block";
+            document.getElementById("review1").innerHTML = reviewHTML.split('<p>')[0];  // Pertanyaan 1
+            document.getElementById("review2").innerHTML = reviewHTML.split('<p>')[1];  // Pertanyaan 2
+            document.getElementById("review3").innerHTML = reviewHTML.split('<p>')[2];  // Pertanyaan 3
 
             // Reset form setelah submit
             form.reset();
