@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <quiz>
     <question id="1">
-        <text>Apa ibu kota Indonesia?</text>
+        <text>Apa ibu kota Filipina?</text>
         <options>
-            <option value="A">Jakarta</option>
+            <option value="A">Manila</option>
             <option value="B">Bandung</option>
             <option value="C">Surabaya</option>
         </options>
