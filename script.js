@@ -1,3 +1,4 @@
+
 // Menyimpan jawaban benar
 const correctAnswers = {
   q1: 'A', // Thomas Edison adalah jawaban yang benar untuk soal 1
@@ -10,9 +11,11 @@ document.querySelectorAll('.next-btn').forEach(button => {
     const questionId = this.dataset.question;
     const selectedAnswer = document.querySelector(`input[name="${questionId}"]:checked`);
 
-    // Berikan feedback dan validasi jawaban
+    // Pastikan jawaban telah dipilih sebelum melanjutkan
     if (selectedAnswer) {
       const feedback = document.getElementById(`feedback-${questionId}`);
+      
+      // Periksa apakah jawabannya benar atau salah
       if (selectedAnswer.value === correctAnswers[questionId]) {
         feedback.textContent = "Benar!";
         feedback.className = 'feedback correct';
@@ -51,7 +54,7 @@ document.getElementById('quiz-form').addEventListener('submit', function(event) 
     }
   }
 
-  // Menampilkan hasil1
+  // Menampilkan hasil
   const result = document.getElementById('result');
   result.textContent = `Skor Anda: ${score} dari ${totalQuestions}`;
 });
