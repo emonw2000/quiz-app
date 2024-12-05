@@ -1,30 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <quiz>
     <question id="1">
-        <text>Apa ibu kota Filipina?</text>
+        <text>Usaha sadar dan terencana untuk membekali peserta didik dengan pengetahuan dan kemampuan dasar berkenaan dengan hubungan timbal balik antara warga negara dengan negara, merupakan pengertian dari…</text>
         <options>
-            <option value="A">Manila</option>
-            <option value="B">Bandung</option>
-            <option value="C">Surabaya</option>
+            <option value="A">Pendidikan</option>
+            <option value="B">Pendidikan Kewarganegaraan</option>
+            <option value="C">Patriotisme 17 Agustus 1945</option>
+            <option value="D">Kewarganegaraan</option>
         </options>
-        <correctAnswer>A</correctAnswer>
+        <correctAnswer>B</correctAnswer>
     </question>
     <question id="2">
-        <text>Siapa presiden pertama Indonesia?</text>
+        <text>Pendidikan Kewarganegaraan dikaji dan dibahas melalui pendekatan akademik dan ilmiah dengan menekankan pada olah kalbu, oleh karsa dan oleh rasa serta olah pikir yang bersifat komprehensif, integratif dan holistik. Hal ini merupakan pengertian Pendidikan Kewarganegaraan secara filsafat dilihat dari perspektif…</text>
         <options>
-            <option value="A">Soekarno</option>
-            <option value="B">Suharto</option>
-            <option value="C">Joko Widodo</option>
+            <option value="A">Epistemologi</option>
+            <option value="B">Ontologi</option>
+            <option value="C">Metodologi</option>
+            <option value="D">Aksiologi</option>
         </options>
         <correctAnswer>A</correctAnswer>
     </question>
     <question id="3">
-        <text>Berapa jumlah pulau di Indonesia?</text>
+        <text>Kompetensi Mahasiswa yang diharapkan menjadi ilmuan yang memiliki rasa kebangsaan dan cinta tanah air, demokratis yang berkeadaban, menjadi warga negara yang memiliki daya saing, berdisiplin, dan berpartisipasi aktif, dalam membangun kehidupan yang damai berdasarkan nilai-nilai Pancasila merupakan kompetensi dalam mempelajari Pendidikan Kewarganegaraan yang bersifat…</text>
         <options>
-            <option value="A">13.000</option>
-            <option value="B">17.508</option>
-            <option value="C">5.000</option>
+            <option value="A">Tambahan</option>
+            <option value="B">Pilihan</option>
+            <option value="C">Dasar</option>
+            <option value="D">Wajib</option>
+        </options>
+        <correctAnswer>C</correctAnswer>
+    </question>
+    <question id="4">
+        <text>Yang termasuk landasan Pendidikan Kewarganegaraan adalah…</text>
+        <options>
+            <option value="A">Mengikuti lomba 17 Agustus</option>
+            <option value="B">Melaksanakan Upacara Bendera</option>
+            <option value="C">Mempelajari kesenian daerah</option>
+            <option value="D">Perjuangan mencapai kemerdekaan</option>
+        </options>
+        <correctAnswer>D</correctAnswer>
+    </question>
+    <question id="5">
+        <text>Yang tidak termasuk dalam ruang lingkup Pendidikan Kewarganegaraan adalah…</text>
+        <options>
+            <option value="A">Demokrasi</option>
+            <option value="B">Enterprenership</option>
+            <option value="C">Ketahanan Nasional</option>
+            <option value="D">Wawasan Nusantara</option>
         </options>
         <correctAnswer>B</correctAnswer>
+    </question>
+    <question id="6">
+        <text>Dalam Pendidikan Kewarganegaraan Eksistensi warga negara dan dinamikanya dalam kehidupan bermasyarakat, berbangsa dan bernegara Indonesia merupakan objek…</text>
+        <options>
+            <option value="A">Non formal</option>
+            <option value="B">Substansi</option>
+            <option value="C">Material</option>
+            <option value="D">Formal</option>
+        </options>
+        <correctAnswer>C</correctAnswer>
+    </question>
+    <question id="7">
+        <text>Wawasan Nusantara merupakan Kebulatan wilayah nasional, termasuk satu kesatuan bangsa, satu tujuan dan tekad perjuangan dan satu kesatuan hukum, satu kesatuan sosial budaya, satu kesatuan ekonomi dan satu kesatuan hankam merupakan pengertian Wawasan Nusantara menurut…</text>
+        <options>
+            <option value="A">Wan Usman</option>
+            <option value="B">Majelis Permusyawaratan Rakyat</option>
+            <option value="C">Hasan Habib</option>
+            <option value="D">Lembaga Ketahanan Nasional</option>
+        </options>
+        <correctAnswer>C</correctAnswer>
+    </question>
+    <question id="8">
+        <text>Salah satu makna Wawasan Nusantara sebagai Kesatuan politik yaitu Bangsa Indonesia hidup berdampingan dengan bangsa lain dan berperan dalam hal-hal berikut ini kecuali…</text>
+        <options>
+            <option value="A">Menciptakan ketertiban dunia yang berdasarkan kemerdekaan, perdamaian abadi, dan keadilan sosial</option>
+            <option value="B">Ikut membantu dalam menyelesaikan permasalahan negara lain</option>
+            <option value="C">Menganut politik luar negeri bebas aktif</option>
+            <option value="D">Mengutamakan kepentingan nasional</option>
+        </options>
+        <correctAnswer>B</correctAnswer>
+    </question>
+    <question id="9">
+        <text>Negara merupakan organisme yang hidup merupakan pengertian geopolitik yang dikemukakan oleh…</text>
+        <options>
+            <option value="A">Frederich Ratzel</option>
+            <option value="B">Rudolf Kjellen</option>
+            <option value="C">Hasan Habib</option>
+            <option value="D">Karl Haushofer</option>
+        </options>
+        <correctAnswer>A</correctAnswer>
+    </question>
+    <question id="10">
+        <text>Wawasan benua yang dikemukakan oleh Sir Halford Mackinder dan Karl Haushofer menyatakan bahwa negara yang bisa menguasai dunia apabila bisa menguasai…</text>
+        <options>
+            <option value="A">Amerika</option>
+            <option value="B">Eropa Barat</option>
+            <option value="C">Eropa Timur</option>
+            <option value="D">Cina</option>
+        </options>
+        <correctAnswer>C</correctAnswer>
     </question>
 </quiz>
