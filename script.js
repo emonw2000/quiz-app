@@ -1,5 +1,4 @@
-
-// Menyimpan jawaban benar
+// Jawaban benar untuk setiap soal
 const correctAnswers = {
   q1: 'A', // Thomas Edison adalah jawaban yang benar untuk soal 1
   q2: 'A', // Paris adalah jawaban yang benar untuk soal 2
@@ -11,11 +10,11 @@ document.querySelectorAll('.next-btn').forEach(button => {
     const questionId = this.dataset.question;
     const selectedAnswer = document.querySelector(`input[name="${questionId}"]:checked`);
 
-    // Pastikan jawaban telah dipilih sebelum melanjutkan
+    // Pastikan jawaban telah dipilih
     if (selectedAnswer) {
       const feedback = document.getElementById(`feedback-${questionId}`);
-      
-      // Periksa apakah jawabannya benar atau salah
+
+      // Cek apakah jawabannya benar atau salah
       if (selectedAnswer.value === correctAnswers[questionId]) {
         feedback.textContent = "Benar!";
         feedback.className = 'feedback correct';
@@ -24,12 +23,15 @@ document.querySelectorAll('.next-btn').forEach(button => {
         feedback.className = 'feedback incorrect';
       }
 
-      // Sembunyikan pertanyaan dan tampilkan pertanyaan berikutnya
+      // Tampilkan feedback dan pindah ke soal berikutnya
+      feedback.style.display = 'block'; // Menampilkan feedback setelah memilih jawaban
+
+      // Sembunyikan pertanyaan saat ini dan tampilkan pertanyaan berikutnya
       document.getElementById(questionId).style.display = 'none';
       const nextQuestionId = `q${parseInt(questionId.charAt(1)) + 1}`;
       document.getElementById(nextQuestionId).style.display = 'block';
 
-      // Tampilkan tombol Kirim jika semua soal sudah dijawab
+      // Tampilkan tombol Kirim jika sudah menjawab semua soal
       if (nextQuestionId === 'q3') {
         document.getElementById('submit').style.display = 'block';
       }

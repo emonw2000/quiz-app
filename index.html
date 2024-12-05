@@ -1,17 +1,54 @@
-<div class="question" id="q1">
-  <p>1. Siapa penemu lampu pijar?</p>
-  <label>
-    <input type="radio" name="q1" value="A"> Thomas Edison
-  </label><br>
-  <label>
-    <input type="radio" name="q1" value="B"> Alexander Graham Bell
-  </label><br>
-  <label>
-    <input type="radio" name="q1" value="C"> Nikola Tesla
-  </label><br>
-  <label>
-    <input type="radio" name="q1" value="D"> Albert Einstein
-  </label><br>
-  <button type="button" class="next-btn" data-question="q1">Next</button>
-  <p class="feedback" id="feedback-q1"></p> <!-- Feedback untuk soal pertama -->
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz App</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="quiz">
+    <div class="question" id="q1">
+      <p>1. Siapa penemu lampu pijar?</p>
+      <label>
+        <input type="radio" name="q1" value="A"> Thomas Edison
+      </label><br>
+      <label>
+        <input type="radio" name="q1" value="B"> Alexander Graham Bell
+      </label><br>
+      <label>
+        <input type="radio" name="q1" value="C"> Nikola Tesla
+      </label><br>
+      <label>
+        <input type="radio" name="q1" value="D"> Albert Einstein
+      </label><br>
+      <button type="button" class="next-btn" data-question="q1">Next</button>
+      <p class="feedback" id="feedback-q1"></p>
+    </div>
+    
+    <div class="question" id="q2" style="display: none;">
+      <p>2. Apa ibu kota Prancis?</p>
+      <label>
+        <input type="radio" name="q2" value="A"> Paris
+      </label><br>
+      <label>
+        <input type="radio" name="q2" value="B"> London
+      </label><br>
+      <label>
+        <input type="radio" name="q2" value="C"> Berlin
+      </label><br>
+      <label>
+        <input type="radio" name="q2" value="D"> Madrid
+      </label><br>
+      <button type="button" class="next-btn" data-question="q2">Next</button>
+      <p class="feedback" id="feedback-q2"></p>
+    </div>
+    
+    <div id="submit" style="display: none;">
+      <button type="submit">Kirim Jawaban</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
