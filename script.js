@@ -51,7 +51,7 @@ document.getElementById('quiz-form').addEventListener('submit', function(event) 
     }
   }
 
-  // Menampilkan hasil
+  // Menampilkan hasil1
   const result = document.getElementById('result');
   result.textContent = `Skor Anda: ${score} dari ${totalQuestions}`;
 });
