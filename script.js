@@ -5,12 +5,13 @@ function selectCategory(category) {
     document.getElementById("categorySelection").style.display = "none";
     document.getElementById("quizContainer").style.display = "block";
     loadXML(category);
+    loadIframe(category);  // Memuat iframe berdasarkan kategori
 }
 
 // Fungsi untuk memuat XML berdasarkan kategori
 function loadXML(category) {
     const xhr = new XMLHttpRequest();
-    const file = category === 'pkn' ? 'questions_pkn.xml' : 'questions_agama.xml';
+    const file = category === 'penjas' ? 'questions_penjas.xml' : 'questions_pembel_was_masy.xml';
     xhr.open("GET", file, true); // Memilih file XML berdasarkan kategori
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
@@ -86,4 +87,32 @@ function submitQuiz() {
     // Menampilkan review hasil
     document.getElementById("review").style.display = "block";
     document.getElementById("review1").innerHTML = reviewHTML;
+}
+
+// Fungsi untuk memuat iframe sesuai kategori
+function loadIframe(category) {
+    const iframeContainer = document.getElementById("iframeContainer");
+    iframeContainer.innerHTML = ""; // Reset isi container iframe
+
+    let iframeHTML = "";
+
+    if (category === 'penjas') {
+        iframeHTML = `
+            <iframe src="https://elearning.ut.ac.id/h5p/embed.php?url=https%3A%2F%2Felearning.ut.ac.id%2Fpluginfile.php%2F53214107%2Fmod_h5pactivity%2Fpackage%2F0%2Ftes-sumatif-590-12333.h5p&amp;component=mod_h5pactivity" 
+                    name="h5player" width="1208" height="356"
+                    allowfullscreen="allowfullscreen" class="h5p-player w-100 border-0" 
+                    style="height: 0px;" id="67523dbe00bdc67523dbe00bde1-h5player">
+            </iframe>
+        `;
+    } else if (category === 'pembel_was_masy') {
+        iframeHTML = `
+            <iframe src="https://elearning.ut.ac.id/h5p/embed.php?url=https%3A%2F%2Felearning.ut.ac.id%2Fpluginfile.php%2F53252954%2Fmod_h5pactivity%2Fpackage%2F0%2Flatihan-sesi-65-14089.h5p&amp;component=mod_h5pactivity" 
+                    name="h5player" width="1208" height="338"
+                    allowfullscreen="allowfullscreen" class="h5p-player w-100 border-0" 
+                    style="height: 0px;" id="67523f38b67c667523f38b67c81-h5player">
+            </iframe>
+        `;
+    }
+
+    iframeContainer.innerHTML = iframeHTML; // Menampilkan iframe sesuai kategori
 }
