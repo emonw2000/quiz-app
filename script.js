@@ -106,11 +106,10 @@ function loadIframe(category) {
         `;
     } else if (category === 'pembel_was_masy') {
         iframeHTML = `
-            <iframe src="https://elearning.ut.ac.id/h5p/embed.php?url=https%3A%2F%2Felearning.ut.ac.id%2Fpluginfile.php%2F53252954%2Fmod_h5pactivity%2Fpackage%2F0%2Flatihan-sesi-65-14089.h5p&amp;component=mod_h5pactivity" 
-                    name="h5player" width="1208" height="338"
-                    allowfullscreen="allowfullscreen" class="h5p-player w-100 border-0" 
-                    style="height: 0px;" id="67523f38b67c667523f38b67c81-h5player">
-            </iframe>
+           <iframe src="https://elearning.ut.ac.id/h5p/embed.php?url=https%3A%2F%2Felearning.ut.ac.id%2Fpluginfile.php%2F53252952%2Fmod_h5pactivity%2Fpackage%2F0%2Flatihan-sumatif-14064.h5p&amp;component=mod_h5pactivity" name="h5player" width="1208" height="338"
+   allowfullscreen="allowfullscreen" class="h5p-player w-100 border-0"
+   style="height: 0px;" id="675243860b5fc675243860b5fd1-h5player">
+</iframe>
         `;
     }
 
